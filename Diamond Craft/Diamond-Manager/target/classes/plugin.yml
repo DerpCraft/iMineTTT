@@ -1,0 +1,8 @@
+author: ScRiiPteD
+database: true
+description: Manages all custom plugins for Diamond Craft
+main: me.scriipted.plugins.diamondmanager.DiamondManager
+name: Diamond Manager
+startup: postworld
+url: http://diamondcraft.co/
+version: '1.0'
