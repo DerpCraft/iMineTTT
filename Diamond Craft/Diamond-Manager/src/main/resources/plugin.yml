@@ -6,4 +6,51 @@ main: me.scriipted.plugins.diamondmanager.DiamondManager
 name: Diamond Manager
 startup: postworld
 url: http://xboxdm.com/
-version: '1.0'
+version: '2.0'
+commands:
+  dc:
+    description: The prefix command for all the Diamond craft commands
+    usage: /dc <command>
+  fly:
+    description: Allows you to fly
+    usage: /fly
+  sendi:
+    description: Sends items to another player
+    usage: /sendi <player name> <item> <number to send>
+    aliases: si
+  shout:
+    description: Allows you to globaly message the server
+    usage: /shout <message>
+    aliases: s
+  global:
+    description: Chat globaly
+    usage: /global <message>
+    aliases: g
+permissions:
+  dc.*:
+    description: Gives access to all dc permssions
+    children:
+      dc.pvp: true
+      dc.reload: true
+      dc.fly: true
+      dc.StaffJoin: true
+  dc.pvp:
+    description: Allows you to add or remove PVP status from a region
+    default: op
+  dc.reload:
+    description: Allows you to reload the configuration file
+    default: op
+  dc.fly:
+    description: Allows you to fly
+    default: op
+  dc.StaffJoin:
+    description: Allows you to join with a bang
+    default: op
+  dc.shout:
+    description: Allows use to the /shout command
+    default: all
+  dc.shout.bypass:
+    description: Allows you to bypass the shout timer
+  dc.chat.global:
+    description: Allows you to talk in global chat
+    default: op
