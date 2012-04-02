@@ -1,5 +1,4 @@
 author: ScRiiPteD
-database: true
 description: Manages all custom plugins for XDM
 generator: http://dinnerbone.com/minecraft/tools/pluginator/
 main: me.scriipted.plugins.diamondmanager.DiamondManager

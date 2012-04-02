@@ -1,0 +1,31 @@
+###############################
+###############################
+# Diamond Manager Configuration
+###############################
+###############################
+#
+#
+#Do Not Change! Erases your configuration file!
+version: 1.0
+###############################
+#
+#Shout Settings!
+Shout:
+  Timer:
+    Length: 1200
+###############################
+#
+#
+#Plugin Information
+Plugin:
+  Information:
+    version: 2.0
+    author: Tjs238
+    prefix: [DiamondCore]
+###############################
+###############################
+# End Diamond Manager Config ##
+###############################
+###############################
+
+
