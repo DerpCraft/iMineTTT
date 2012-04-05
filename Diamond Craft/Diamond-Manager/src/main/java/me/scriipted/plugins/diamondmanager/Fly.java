@@ -23,9 +23,9 @@ public class Fly implements CommandExecutor{
     public Fly(DiamondManager plugin) {
         this.plugin = plugin;
     }
-
+    
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String cmdLabel, String[] args) {
-        if (cmd.getName().equals("fly")) {
             Player p = (Player) sender;
             if(p.hasPermission("dc.fly")) {
                 toogleFlyStatus(p);
@@ -47,9 +47,7 @@ public class Fly implements CommandExecutor{
                 p.sendMessage(ChatColor.GRAY+"You do not have permission to fly!");
                 return true;
             }
-        }
-        
-        return false;
+            return true;
     }
     
     public Map<Player, Boolean> isFlying = new HashMap<Player, Boolean>();

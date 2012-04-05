@@ -24,9 +24,13 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import me.scriipted.plugins.diamondmanager.commands.Hi;
+import me.scriipted.plugins.diamondmanager.commands.Mod;
 import org.bukkit.*;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.block.SignChangeEvent;
@@ -34,11 +38,10 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
-public class DiamondManager extends JavaPlugin implements Listener {
+public class DiamondManager extends JavaPlugin {
     
     private Logger log;
     private PluginDescriptionFile description;
-    private FileConfiguration config;
     private String prefix;
     private String source;
     private double currentVer = 1;
@@ -47,31 +50,14 @@ public class DiamondManager extends JavaPlugin implements Listener {
     private String json;
     private String Group;
     public Server server = Bukkit.getServer();
-    private Fly fly = new Fly(this);
-    private SendItem sendi;
-    private Shout shout;
-    private Global global;
-    private SPower spower = new SPower(this);
-    public HashMap<String, HashMap> channels;
-    public HashMap<String, Location> schannels;
-    public String savePath = "/plugins/Diamond Manager/";
-    public FileConfiguration configuration;
     
     @Override
     public void onDisable() {
-        try {
-            // TODO: Place any custom disable code here.
-            SLAPI.save(fly.isFlying, "flying.bin");
-            SLAPI.save(channels, "channels.bin");
-            SLAPI.save(schannels, "schannels.bin");
-        } catch (Exception ex) {
-            Logger.getLogger(DiamondManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        log("Disabled!");
     }
 
     @Override
     public void onEnable() {
-        getServer().getPluginManager().registerEvents(this, this);
         
         log = Logger.getLogger("Minecraft");
         description = getDescription();
@@ -94,13 +80,15 @@ public class DiamondManager extends JavaPlugin implements Listener {
         
         log("Loading "+description.getFullName());
         
-        sendi = new SendItem(this);
+        SendItem sendi = new SendItem(this);
         
-        shout = new Shout(this);
+        Shout shout = new Shout(this);
         
-        global = new Global(this);
+        Global global = new Global(this);
         
-        getCommand("fly").setExecutor(fly);
+        Mod mod = new Mod(this);
+        
+        Hi hi = new Hi(this);
         
         getCommand("sendi").setExecutor(sendi);
         
@@ -108,16 +96,17 @@ public class DiamondManager extends JavaPlugin implements Listener {
         
         getCommand("global").setExecutor(global);
         
-        getWorldGuard();
+        getCommand("mod").setExecutor(mod);
         
-        //Load the Config
-        log("Loading Configuration");
-        loadConfiguration();
+        getCommand("hi").setExecutor(hi);
+        
+        getWorldGuard();
         log("Enabled!");
         
     }
     
     //Set up DC Command
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String cmdLabel, String[] args) {
         Player player = (Player) sender;
         int i;
@@ -181,18 +170,32 @@ public class DiamondManager extends JavaPlugin implements Listener {
         
         return false;
     }
+    
+    public Map<Player, Boolean> isFlying = new HashMap<Player, Boolean>();
+    
+    public void toogleFlyStatus(Player player) {
+        if(isFlying.containsKey(player)) {
+            if(isFlying.get(player)) {
+                isFlying.put(player, false);
+                player.setAllowFlight(false);
+                player.setFlying(false);
+                player.sendMessage(ChatColor.GRAY+"You Stopped Flying!");
+            } else {
+                isFlying.put(player, true);
+                player.setAllowFlight(true);
+                player.sendMessage(ChatColor.GRAY+"You Started to Fly!");
+            }
+        } else {
+            isFlying.put(player, true);
+            player.setAllowFlight(true);
+            player.sendMessage(ChatColor.GRAY+"You Started To Fly!");
+        }
+    }
+    
     public void log(String message){
         log.info(prefix+message);
     }
     
-    public void loadConfiguration() {
-        //Create the Defaults
-        getConfig();
-        getConfig().options().copyDefaults(true);
-        
-        //Save the Config
-        saveConfig();
-    }
     
     public WorldGuardPlugin getWorldGuard() {
         Plugin plugin = getServer().getPluginManager().getPlugin("WorldGuard");

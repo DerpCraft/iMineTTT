@@ -27,7 +27,7 @@ public class Shout implements CommandExecutor{
         this.plugin = plugin;
     }
     
-    private Long time = plugin.getConfig().getLong("Shout.Timer");
+    private Long time = 1200L;
 
     public boolean onCommand(CommandSender sender, Command cmd, String string, String[] args) {
         if (cmd.getName().equals("shout")) {
@@ -45,17 +45,36 @@ public class Shout implements CommandExecutor{
     }
     
     public void shout(Player player, String msg) {
+        if (msg.isEmpty()) {
+            player.sendMessage(ChatColor.RED+"You must type a message to shout!");
+            return;
+        }
         if (hasShouted.containsValue(false) && player.hasPermission("dc.shout")) {
-            server.broadcastMessage(ChatColor.RED+"[S]"+ChatColor.WHITE+player.getDisplayName()+ChatColor.GRAY+": "+msg);
-            hasShouted.put(player, true);
-            setTimer(player);
+            if (player.hasPermission("dc.color")) {
+                server.broadcastMessage(ChatColor.RED+"[S]"+ChatColor.WHITE+player.getDisplayName()+ChatColor.GRAY+": "+replaceColors(msg));
+                hasShouted.put(player, true);
+                setTimer(player);
+            } else {
+                server.broadcastMessage(ChatColor.RED+"[S]"+ChatColor.WHITE+player.getDisplayName()+ChatColor.GRAY+": "+msg);
+                hasShouted.put(player, true);
+                setTimer(player);
+            }
         } else if (player.hasPermission("dc.shout.bypass")) {
-            server.broadcastMessage(ChatColor.RED+"[S]"+ChatColor.WHITE+player.getDisplayName()+ChatColor.GRAY+": "+msg);
+            if (player.hasPermission("dc.color")) {
+                server.broadcastMessage(ChatColor.RED+"[S]"+ChatColor.WHITE+player.getDisplayName()+ChatColor.GRAY+": "+replaceColors(msg));
+            } else {
+                server.broadcastMessage(ChatColor.RED+"[S]"+ChatColor.WHITE+player.getDisplayName()+ChatColor.GRAY+": "+msg);
+            }
         } else if (hasShouted.containsValue(true)) {
             player.sendMessage(ChatColor.RED+"Sorry you must wait 1 minute from when you last shouted to shout!");
         } else {
-            server.broadcastMessage(ChatColor.RED+"[S]"+ChatColor.WHITE+player.getDisplayName()+ChatColor.GRAY+": "+msg);
-            hasShouted.put(player, true);
+            if (player.hasPermission("dc.color")) {
+                server.broadcastMessage(ChatColor.RED+"[S]"+ChatColor.WHITE+player.getDisplayName()+ChatColor.GRAY+": "+replaceColors(msg));
+                hasShouted.put(player, true);
+            } else {
+                server.broadcastMessage(ChatColor.RED+"[S]"+ChatColor.WHITE+player.getDisplayName()+ChatColor.GRAY+": "+msg);
+                hasShouted.put(player, true);
+            }
         }
     }
     
@@ -68,4 +87,8 @@ public class Shout implements CommandExecutor{
     }
     
     public Map<Player, Boolean> hasShouted = new HashMap<Player, Boolean>();
+    
+    private String replaceColors (String message) {
+		return message.replaceAll("(?i)&([a-f0-9])", "\u00A7$1");
+	}
 }
