@@ -43,7 +43,7 @@ public class Global implements CommandExecutor{
         return false;
     }
     
-    private String replaceColors (String message) {
+    public String replaceColors (String message) {
 		return message.replaceAll("(?i)&([a-f0-9])", "\u00A7$1");
 	}
     

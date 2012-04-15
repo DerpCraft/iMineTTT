@@ -30,13 +30,12 @@ public class Mod implements CommandExecutor {
         Server server = Bukkit.getServer();
         if (player.hasPermission("dc.shout.mod") && !player.hasPermission("dc.shout.smod")) {
             String playerName = player.getDisplayName();
-            server.broadcastMessage(ChatColor.YELLOW+"[G]"+player.getDisplayName()+ChatColor.YELLOW+": "+ChatColor.GOLD+"Need Help? Message me! "+ChatColor.YELLOW+"Able to place: "+ChatColor.RED+"Fire"+ChatColor.YELLOW+", "+ChatColor.AQUA+"Water"+ChatColor.YELLOW+", "+ChatColor.DARK_RED+"Lava"+ChatColor.YELLOW+", "+ChatColor.DARK_AQUA+"Warps");
+            server.broadcastMessage(ChatColor.YELLOW+"[G]"+player.getDisplayName()+ChatColor.YELLOW+": "+ChatColor.GOLD+"Need Help? Message me! "+ChatColor.YELLOW+"Able to place "+ChatColor.RED+"Fire"+ChatColor.YELLOW+", "+ChatColor.AQUA+"Water"+ChatColor.YELLOW+", "+ChatColor.DARK_RED+"Lava"+ChatColor.YELLOW+", "+ChatColor.DARK_AQUA+"Warps");
             return true;
         } else if (!player.hasPermission("dc.shout.mod")){
             player.sendMessage(ChatColor.RED+"You have to be a mod to run this command!");
         } else if (player.hasPermission("dc.shout.mod") && player.hasPermission("dc.shout.smod")) {
-            server.broadcastMessage(ChatColor.YELLOW+"[G]"+player.getDisplayName()+ChatColor.YELLOW+": "+ChatColor.GOLD+"Need Help? Message me! "+ChatColor.YELLOW+"Able to help with:");
-            server.broadcastMessage(ChatColor.AQUA+""+ChatColor.BOLD+""+ChatColor.UNDERLINE+"EVERYTHING");
+            server.broadcastMessage(ChatColor.YELLOW+"[G]"+player.getDisplayName()+ChatColor.YELLOW+": "+ChatColor.GOLD+"Need Help? Message me! "+ChatColor.YELLOW+"Able to help with everything!");
             return true;
         }
         

@@ -30,7 +30,7 @@ public class Hi implements CommandExecutor{
         Server server = Bukkit.getServer();
         if (player.hasPermission("dc.shout.hi")) {
             server.broadcastMessage(ChatColor.YELLOW+"[G]"+player.getDisplayName()+ChatColor.YELLOW+": "+ChatColor.DARK_BLUE+"W "+ChatColor.DARK_GREEN+"E "+ChatColor.DARK_AQUA+"L "+ChatColor.RED+"C "+ChatColor.DARK_PURPLE+"O "+ChatColor.GOLD+"M "+ChatColor.GRAY+"E");
-            server.broadcastMessage(ChatColor.DARK_GRAY+"---- Diamond Craft ----");
+            server.broadcastMessage(ChatColor.GRAY+"to "+ChatColor.DARK_GRAY+"---- Diamond Craft ----");
             return true;
         } else {
             player.sendMessage(ChatColor.RED+"You must be a Mod to type this command!");

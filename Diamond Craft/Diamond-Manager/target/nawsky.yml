@@ -1,0 +1,35 @@
+npc: false
+timestamps:
+  login: 1334512341468
+  lastteleport: 1334513417737
+  logout: 1334511089380
+  kits:
+    tools: 1332760220431
+    starter: 1333511295466
+    staff: 1334281471253
+ipAddress: 72.192.37.98
+lastlocation:
+  world: world
+  x: -1756.7740718268112
+  y: 87.75000098347664
+  z: -792.687044487128
+  yaw: -77.91989
+  pitch: 9.4358635
+godmode: false
+money: 9.9999999998E12
+afk: false
+teleportenabled: false
+homes:
+  home:
+    world: world
+    x: -1747.913354488232
+    y: 63.0
+    z: -771.1388335811957
+    yaw: 6.4307733
+    pitch: -1.5069221
+geolocation: Lincoln, Rhode Island, United States
+socialspy: true
+powertools:
+  '7':
+  - toggle
+nickname: NawSky

@@ -18,27 +18,29 @@ import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.net.MalformedURLException;
+import java.util.*;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import me.scriipted.plugins.diamondmanager.commands.Hi;
-import me.scriipted.plugins.diamondmanager.commands.Mod;
+import javax.persistence.PersistenceException;
+import me.scriipted.plugins.diamondmanager.commands.*;
+import me.scriipted.plugins.diamondmanager.listeners.PlayerJoin;
+import me.scriipted.plugins.diamondmanager.listeners.PotionThrow;
+import me.scriipted.plugins.diamondmanager.warning.Warn;
+import me.scriipted.plugins.diamondmanager.warning.WarnedPlayers;
 import org.bukkit.*;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.configuration.Configuration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
-public class DiamondManager extends JavaPlugin {
+public class DiamondManager extends JavaPlugin implements Listener{
     
     private Logger log;
     private PluginDescriptionFile description;
@@ -50,6 +52,9 @@ public class DiamondManager extends JavaPlugin {
     private String json;
     private String Group;
     public Server server = Bukkit.getServer();
+    public clsConfiguration config = null;
+    private PotionThrow pt = new PotionThrow(this);
+    private PlayerJoin pj = new PlayerJoin(this);
     
     @Override
     public void onDisable() {
@@ -63,7 +68,8 @@ public class DiamondManager extends JavaPlugin {
         description = getDescription();
         prefix = "["+description.getName()+"] ";
         log("Starting Website Syncing");
-        
+        server.getPluginManager().registerEvents(pt, this);
+        server.getPluginManager().registerEvents(this, this);
         server.getScheduler().scheduleAsyncRepeatingTask(this, new Runnable() {
             public void run() {
                 log("Running Website Syncing");
@@ -90,6 +96,14 @@ public class DiamondManager extends JavaPlugin {
         
         Hi hi = new Hi(this);
         
+        Warn warn = new Warn(this);
+        
+        playerz playerz = new playerz(this);
+        
+        list list = new list(this);
+        
+        who who = new who(this);
+        
         getCommand("sendi").setExecutor(sendi);
         
         getCommand("shout").setExecutor(shout);
@@ -100,9 +114,74 @@ public class DiamondManager extends JavaPlugin {
         
         getCommand("hi").setExecutor(hi);
         
+        getCommand("warn").setExecutor(warn);
+        
+        /*getCommand("playerz").setExecutor(playerz);
+        
+        getCommand("list").setExecutor(list);
+        
+        getCommand("who").setExecutor(who);*/
+        
+        // TODO: Add potion protect code here.
+        
         getWorldGuard();
+        
+        config = new clsConfiguration(this, "config.yml");
+        config.GetConfig();
+        config.SaveConfig();
+        
+        log("Starting up Warn Persistance!");
+        setupDatabase();
+        
         log("Enabled!");
         
+        startPlayerz();
+        
+    }
+    
+    private void setupDatabase() {
+        try {
+            getDatabase().find(WarnedPlayers.class).findRowCount();
+        } catch (PersistenceException ex) {
+            log("Installing Database due to first time usage!");
+            installDDL();
+        }
+    }
+    
+    public void startPlayerz() {
+        playerz plz = new playerz(this);
+        Player[] plzOnline = server.getOnlinePlayers();
+        plz.onlinePlayerz = plzOnline.length;
+        final Global global = new Global(this);
+        server.getScheduler().scheduleAsyncRepeatingTask(this, new Runnable() {
+            public void run() {
+               server.broadcastMessage(global.replaceColors("&6------------------[&3DiamondCraft&6]-----------------------"));
+               server.broadcastMessage("");
+            }
+        }, 20L, 50001
+                );
+    }
+    
+    /*public void sendPlayerzStats(Player player) {
+        String plzPrefixp = "&6------------------[&3DiamondCraft&6]-----------------------";
+        String plzSuffixp = "&6-----------------------------------------------------";
+        Global global = new Global(this);
+        player.sendMessage(global.replaceColors(plzPrefixp));
+        List<Player> onlinePlayers = new ArrayList<Player>();
+        List<Player> onlineStaff = new ArrayList<Player>();
+        int i;
+        for(Player staff: onlinePlayers) {
+            Player pstaff = (Player) staff;
+            if ()
+        }
+        player.sendMessage(global.replaceColors(plzSuffixp));
+    } */
+    
+    @Override
+    public List<Class<?>> getDatabaseClasses() {
+        List<Class<?>> list = new ArrayList<Class<?>>();
+        list.add(WarnedPlayers.class);
+        return list;
     }
     
     //Set up DC Command
@@ -133,7 +212,7 @@ public class DiamondManager extends JavaPlugin {
                     String target = args[1];
                     String region = args[2];
                     player.sendMessage(ChatColor.AQUA + prefix + ChatColor.LIGHT_PURPLE + " Removing " + target + " from " + region);
-                    player.performCommand("region flag " + region + " " + target);
+                    player.performCommand("region removeowner " + region + " " + target);
                     return true;
                 } else if ("addpvp".equals(pCmd)) {
                     String region = args[1];
@@ -284,6 +363,26 @@ public class DiamondManager extends JavaPlugin {
         in.close();
         
         return (!content.equals("") ? content : null);
+    }
+    
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        player.sendMessage(ChatColor.AQUA+"[DiamondCraft] "+ChatColor.LIGHT_PURPLE+"Loading Chat Channels...");
+        if (player.hasPermission("dc.member")) {
+            player.performCommand("ch g");
+            player.performCommand("ch l");
+        } else if (player.hasPermission("dc.donor")) {
+            player.sendMessage(ChatColor.AQUA+"[DiamondCraft] "+ChatColor.LIGHT_PURPLE+"VIP member found. Loading VIP channels!");
+            player.performCommand("ch g");
+            player.performCommand("ch vip");
+            player.performCommand("ch l");
+        } else if (player.hasPermission("dc.staff")) {
+            player.sendMessage(ChatColor.AQUA+"[DiamondCraft] "+ChatColor.LIGHT_PURPLE+"Staff member found. Loading Staff channels!");
+            player.performCommand("ch g");
+            player.performCommand("ch staff");
+            player.performCommand("ch l");
+        }
     }
 }
 
