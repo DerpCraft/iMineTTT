@@ -29,9 +29,19 @@ public class Iminettt extends JavaPlugin {
         setupChat();
         debug("Setting up error logger");
         ErrorLogger.register(this, "iMineTTT", "me.itidez.plugins", "http://mantis.derpcraft.co/");
-        debug("");
+        debug("Registered Error Logger");
         CommandManager commandRegistrator = new CommandManager(this);
         commandRegistrator.register(AdminCommand.class);
+        commandRegistrator.register(ShopCommand.class); // iTidez Edit: Added on GitHub (Fetch REPO)
+        debug("Registered Commands"); // iTidez Edit: Added on GitHub (Fetch REPO)
+        /*
+         * Remote Entity Manager Setup
+         * Do not edit past class file name
+         */
+        EntityManager manager = RemoteEntities.createManager(this);
+        // Actual Entity variable. Assign player death's location to spawn location
+        // RemoteEntity entity = manager.createEntity(RemoteEntity.Zombie,     Bukkit.getWorld("world").getSpawnLocation(), false);
+        
     }
     
     public void log(String message) {
