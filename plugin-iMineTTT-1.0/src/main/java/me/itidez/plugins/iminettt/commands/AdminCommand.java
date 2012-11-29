@@ -6,7 +6,7 @@ package me.itidez.plugins.iminettt.commands;
 
 import me.itidez.plugins.iminettt.CommandManager;
 import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.entity.player.*;
+import org.bukkit.entity.Player;
 
 /**
  *
@@ -18,7 +18,7 @@ public class AdminCommand {
         String[] args = getArgs(arg);
         Player player = (Player)sender;
         
-        if(player.hasPermission("minettt.admin") {
+        if(player.hasPermission("minettt.admin")) {
             if(args.length == 0) {
                 // TODO: Enter admin help page
             } else if (args[0].equalsIgnoreCase("status")) {
@@ -87,7 +87,7 @@ public class AdminCommand {
         return false;
     }
     
-    public String[] getArgs(String... a) {
+    public static String[] getArgs(String... a) {
         String[] args = null;
         int i = 0;
         for(String arg : a) {

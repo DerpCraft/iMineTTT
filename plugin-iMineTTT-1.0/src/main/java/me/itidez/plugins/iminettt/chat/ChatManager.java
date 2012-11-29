@@ -26,7 +26,7 @@ public class ChatManager implements Listener{
     public void onPlayerChat(PlayerChatEvent event) {
         Player player = event.getPlayer();
         String playerName = player.getDisplayName();
-        event.setCanceled(true);
+        event.setCancelled(true);
         //for()
     }
 }
