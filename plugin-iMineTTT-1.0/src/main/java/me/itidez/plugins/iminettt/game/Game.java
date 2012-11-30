@@ -21,13 +21,54 @@ public class Game {
     private HashMap<Player, Team> ptlist;
     private Status status;
     private Iminettt plugin;
+    private String gameName;
+    private boolean hasStarted = false;
+    private me.itidez.plugins.iminettt.game.Map map;
     
     public Game(Iminettt plugin) {
+        this(plugin, "default");
+        /*this.plugin = plugin;
+        plist = new ArrayList<Player>();
+        ptlist = new HashMap<Player, Team>();
+        status = Status.PREGAME;
+        gameName = genRandName();*/
+    }
+    
+    public Game(Iminettt plugin, me.itidez.plugins.iminettt.game.Map mapName) {
+        this(plugin, mapName, "default");
+    }
+    
+    public Game(Iminettt plugin, String gameName) {
+        this(plugin, Map.RAND, gameName);
+    }
+    
+    public Game(Iminettt plugin, me.itidez.plugins.iminettt.game.Map mapName, String gameName) {
         this.plugin = plugin;
         plist = new ArrayList<Player>();
         ptlist = new HashMap<Player, Team>();
         status = Status.PREGAME;
+        if(gameName != "default" && !gameName.isEmpty()) {
+            gameName = genRandName(gameName);
+        } else
+            gameName = genRandName();
     }
+    
+    private me.itidez.plugins.iminettt.game.Map getRandMap() {
+        
+        return me.itidez.plugins.iminettt.game.Map.AFGHAN;
+    }
+    
+    private static Integer showRandomInteger(int aStart, int aEnd, Random aRandom) {
+    if ( aStart > aEnd ) {
+      throw new IllegalArgumentException("Start cannot exceed End.");
+    }
+    //get the range, casting to long to avoid overflow problems
+    long range = (long)aEnd - (long)aStart + 1;
+    // compute a fraction of the range, 0 <= frac < range
+    long fraction = (long)(range * aRandom.nextDouble());
+    int randomNumber =  (int)(fraction + aStart);
+    return randomNumber;
+  }
     
     public void addPlayer(Player p) {
         Team ft = null;
@@ -64,6 +105,29 @@ public class Game {
             addPlayer(p);
     }
     
+    public String getGameName() {
+        return gameName;
+    }
+    
+    public String genRandName() {
+        String randName = null;
+        Random rand = new Random();
+        int numString = 0;
+        for(int i = 0; i<21; i++) {
+            if(i == 0) {
+                numString = showRandomInteger(0,9,rand);
+            } else {
+               numString = numString + showRandomInteger(0,9,rand);
+            }
+        }
+        randName = "TTT"+numString+"PCL";
+        return randName;
+    }
+    
+    public String genRandName(String name) {
+        return "TTT"+name.toUpperCase()+"CCL";
+    }
+    
     public int getInnocentCount() {
         int total = 0;
         int i = 0;
@@ -93,18 +157,6 @@ public class Game {
                 total++;
         }
         return total;
-    }
-    
-    private static Integer showRandomInteger(int aStart, int aEnd, Random aRandom) {
-    if ( aStart > aEnd ) {
-      throw new IllegalArgumentException("Start cannot exceed End.");
-    }
-    //get the range, casting to long to avoid overflow problems
-    long range = (long)aEnd - (long)aStart + 1;
-    // compute a fraction of the range, 0 <= frac < range
-    long fraction = (long)(range * aRandom.nextDouble());
-    int randomNumber =  (int)(fraction + aStart);
-    return randomNumber;
     }
     
     public enum Status {
