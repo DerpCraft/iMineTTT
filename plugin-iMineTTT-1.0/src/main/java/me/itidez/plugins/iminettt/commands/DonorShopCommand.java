@@ -28,50 +28,15 @@ public class DonorShopCommand implements ConversationAbandonedListener{
     }
     
     private void openShop(Player p) {
-        this.convoFactory = new ConversationFactory(Iminettt.class)
-                .withModality(true)
-                .withPrefix(new DonorShopPrefix())
-                .withFirstPrompt(new WhichOptionPrompt())
-                .withEscapeSequence("/quit")
-                .withTimeout(20)
-                .thatExcludesNonPlayersWithMessage("For players only")
-                .addConversationAbandonedListener(this);
-        
-        convoFactory.buildConversation((Conversable)p).begin();
-    }
-    
-    public void ConversationAbandoned(ConversationAbandonedEvent event) {
-        if(event.gracefulExit()) {
-            event.getContext().getForWhom().sendRawMessage("Exiting Donor Shop");
-        } else {
-            event.getContext().getForWhom().sendRawMessage("Donor shop closing by" + event.getCanceller().getClass().getName());
-        }
-    }
-    
-    private class WhichOptionPrompt extends FixedSetPrompt {
-        public WhichOptionPrompt() {
-            super("weapons", "armor", "powerups", "none");
-        }
-        
-        public String getPromptText(ConversationContext context) {
-            context.getForWhom().sendRawMessage("Welcome to the Donor Shop");
-            context.getForWhom().sendRawMessage("=========================");
-            context.getForWhom().sendRawMessage("Please Type the item type you would like to buy:");
-            context.getForWhom().sendRawMessage("[1] Weapons");
-            context.getForWhom().sendRawMessage("[2] Armor");
-            context.getForWhom().sendRawMessage("[3] PowerUps");
-            context.getForWhom().sendRawMessage("[4] None");
-            context.getForWhom().sendRawMessage("=========================");
-            return "Please note you do not need to type /donorshop before <itemtype>";
-        }
-        
-        @Override
-        protected Prompt acceptValidededInput(ConversationContext context, String s) {
-            if(s.equalsIgnoreCase("none")) {
-                return Prompt.END_OF_CONVERSATION;
+        IconMenu menu = new IconMenu("Donor Shop", 9, new IconMenu.OptionClickEventHandler() {
+            @Override
+            public void onOptionClick(IconMenu.OptionClickEvent event) {
+                event.getPlayer().sendMessage("You have chosen " + event.getName());
+                event.setWillClose(true);
             }
-            context.setSessionData("InitOption", s);
-            return 
-        }
+        }, plugin)
+        .setOption(3, new ItemStack(Material.APPLE, 1), "Food", "The food is delicious")
+        .setOption(4, new ItemStack(Material.IRON_SWORD, 1), "Weapon", "Weapons are for awesome people")
+        .setOption(5, new ItemStack(Material.EMERALD, 1), "Money", "Money brings happiness");
     }
 }
