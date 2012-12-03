@@ -4,7 +4,9 @@
  */
 package me.itidez.plugins.iminettt.player;
 
-import me.itidez.plugins.iminettt.Teams.Player;
+import org.bukkit.entity.Player;
+
+
 
 /**
  *
