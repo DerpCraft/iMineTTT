@@ -5,10 +5,13 @@
 package me.itidez.plugins.iminettt.commands;
 
 import me.itidez.plugins.iminettt.CommandManager;
+import me.itidez.plugins.iminettt.IconMenu;
+import me.itidez.plugins.iminettt.Iminettt;
 import me.itidez.plugins.iminettt.VaultManager;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.conversations.*;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
 /**
  *
@@ -34,7 +37,7 @@ public class DonorShopCommand implements ConversationAbandonedListener{
                 event.getPlayer().sendMessage("You have chosen " + event.getName());
                 event.setWillClose(true);
             }
-        }, plugin)
+        }, )
         .setOption(3, new ItemStack(Material.IRON_SWORD, 1), "Weapons", "Fight to the death with God Weapons")
         .setOption(4, new ItemStack(Material.IRON_CHEST, 1), "Armour", "I help you live ^_^")
         .setOption(5, new ItemStack(Material.EMERALD, 1), "Powerups", "Nuke 'Em ALL!");
