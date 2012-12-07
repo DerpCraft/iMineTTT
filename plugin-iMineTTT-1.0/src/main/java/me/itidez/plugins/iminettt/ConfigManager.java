@@ -67,4 +67,27 @@ public class ConfigManager {
 		}
 		return true;
 	}
+	
+	public void setString(String path, String value) {
+		config.set(path, value);
+		reloadConfiguration();
+	}
+	
+	public void setList(String path, List value) {
+		config.set(path, value);
+		reloadConfiguration();
+	}
+	
+	public void setBoolean(String path, boolean value) {
+		config.set(path, value);
+		reloadConfiguration();
+	}
+	
+	public void setInt(String path, boolean value) {
+		
+	}
+	
+	public void setLocation(String path, Location loc) {
+		return;
+	}
 }
