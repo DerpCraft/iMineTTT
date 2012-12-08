@@ -1,5 +1,6 @@
 package me.itidez.plugins.iminettt;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import me.itidez.plugins.iminettt.commands.AdminCommand;
 import me.itidez.plugins.iminettt.commands.DonorShopCommand;
@@ -8,9 +9,9 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Iminettt extends JavaPlugin {
-    private Logger log;
+    private static final Logger log = Logger.getLogger("Minecraft");
     private PluginDescriptionFile description;
-    private String prefix;
+    private static String prefix = "[iMineTTT] ";
     private String version;
     public boolean debug = false;
     
@@ -21,10 +22,8 @@ public class Iminettt extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        this.log = Logger.getLogger("Minecraft");
         this.description = getDescription();
         this.version = this.description.getVersion();
-        this.prefix = ("[" + this.description.getName() + "] ");
         debug("Setting up error logger");
         ErrorLogger.register(this, "iMineTTT", "me.itidez.plugins", "http://mantis.derpcraft.co/");
         debug("Registered Error Logger");
@@ -44,11 +43,11 @@ public class Iminettt extends JavaPlugin {
         
     }
     
-    public void log(String message) {
-        this.log.info(this.prefix + message);
+    public static void log(String message) {
+        log.log(Level.INFO, "{0}{1}", new Object[]{prefix, message});
     }
     
-    public void debug(String message) {
-        this.log.info("[DEV]"+this.prefix+message);
+    public static void debug( String message) {
+        log.log(Level.INFO, "[DEV]{0}{1}", new Object[]{prefix, message});
     }
 }
