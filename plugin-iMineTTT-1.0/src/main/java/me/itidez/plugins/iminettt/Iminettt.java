@@ -52,4 +52,3 @@ public class Iminettt extends JavaPlugin {
         this.log.info("[DEV]"+this.prefix+message);
     }
 }
-
