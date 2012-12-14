@@ -35,4 +35,16 @@ public class PotionDetect {
             this.durability = potion.getDurability();
         }
  }
+ 
+ public Player getPlayer() {
+  return player;
+ }
+ 
+ public short getPotionId() {
+  return durability;
+ }
+ 
+ public ItemStack getPotion() {
+  return potion;
+ }
 }
