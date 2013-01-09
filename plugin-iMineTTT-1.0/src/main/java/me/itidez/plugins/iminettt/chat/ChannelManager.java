@@ -1,4 +1,4 @@
-package me.itidez.plugins.iminettt;
+package me.itidez.plugins.iminettt.chat;
 
 import net.krinsoft.chat.api.Manager;
 import net.krinsoft.chat.api.Target;
