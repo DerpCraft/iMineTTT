@@ -1,8 +1,8 @@
 package me.itidez.plugins.iminettt;
 
-import net.krinsoft.chat.api.Manager;
-import net.krinsoft.chat.targets.Channel;
-import net.krinsoft.chat.targets.ChatPlayer;
+import me.itidez.plugins.iminettt.chat.api.Manager;
+import me.itidez.plugins.iminettt.chat.targets.Channel;
+import me.itidez.plugins.iminettt.chat.targets.ChatPlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -17,14 +17,14 @@ import java.util.Set;
 * @author krinsdeath
 */
 public class PlayerManager implements Manager {
-    private ChatCore plugin;
+    private Iminettt plugin;
 
     private HashMap<String, ChatPlayer> players = new HashMap<String, ChatPlayer>();
     private FileConfiguration configuration;
     private File config;
     private boolean persist = false;
 
-    public PlayerManager(ChatCore instance) {
+    public PlayerManager(Iminettt instance) {
         clean();
         plugin = instance;
         config = new File(plugin.getDataFolder(), "players.yml");
@@ -66,7 +66,7 @@ public class PlayerManager implements Manager {
     }
 
     @Override
-    public ChatCore getPlugin() {
+    public Iminettt getPlugin() {
         return plugin;
     }
 
