@@ -1,9 +1,9 @@
 package me.itidez.plugins.iminettt.chat;
 
-import net.krinsoft.chat.api.Manager;
-import net.krinsoft.chat.api.Target;
-import net.krinsoft.chat.targets.Channel;
-import net.krinsoft.chat.targets.ChatPlayer;
+import me.itidez.plugins.iminettt.chat.api.Manager;
+import me.itidez.plugins.iminettt.chat.api.Target;
+import me.itidez.plugins.iminettt.chat.targets.Channel;
+import me.itidez.plugins.iminettt.chat.ChatPlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
