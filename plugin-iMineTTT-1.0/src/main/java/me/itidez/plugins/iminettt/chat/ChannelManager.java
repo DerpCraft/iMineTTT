@@ -13,10 +13,10 @@ import java.util.*;
 
 /**
 *
-* @author krinsdeath
+* @author itidez
 */
 public class ChannelManager implements Manager {
-    private ChatCore plugin;
+    private Iminettt plugin;
     private HashMap<String, Channel> channels = new HashMap<String, Channel>();
 
     private boolean world_channels;
@@ -26,7 +26,7 @@ public class ChannelManager implements Manager {
     private FileConfiguration configuration;
     private File config;
 
-    public ChannelManager(ChatCore instance) {
+    public ChannelManager(Iminettt instance) {
         clean();
         plugin = instance;
         registerConfiguration();
@@ -59,7 +59,7 @@ public class ChannelManager implements Manager {
     }
 
     @Override
-    public ChatCore getPlugin() {
+    public Iminettt getPlugin() {
         return plugin;
     }
 
@@ -90,11 +90,11 @@ public class ChannelManager implements Manager {
     }
 
     /**
-* Adds the specified player to the given channel
-* @param player The player to add to the channel
-* @param channel The name of the channel we're adding the player to
-* @return The handle of the channel the player was added to
-*/
+      * Adds the specified player to the given channel
+      * @param player The player to add to the channel
+      * @param channel The name of the channel we're adding the player to
+      * @return The handle of the channel the player was added to
+    */
     public Channel addPlayerToChannel(Player player, String channel) {
         Channel chan = channels.get(channel.toLowerCase());
         if (chan == null) {
@@ -108,11 +108,11 @@ public class ChannelManager implements Manager {
     }
 
     /**
-* Removes the specified player from the given channel
-* @param player The player we're removing from the channel
-* @param channel The channel we're removing the player from
-* @return The handle of the channel the player was removed from
-*/
+      * Removes the specified player from the given channel
+      * @param player The player we're removing from the channel
+      * @param channel The channel we're removing the player from
+      * @return The handle of the channel the player was removed from
+    */
     public Channel removePlayerFromChannel(Player player, String channel) {
         // get the specified channel
         Channel chan = channels.get(channel.toLowerCase());
@@ -134,11 +134,11 @@ public class ChannelManager implements Manager {
     }
 
     /**
-* Changes the player's stored world alias and updates their world channel
-* @param p The player we're updating
-* @param from The name of the world the player is coming from
-* @param to The name of the world the player is moving to
-*/
+      * Changes the player's stored world alias and updates their world channel
+      * @param p The player we're updating
+      * @param from The name of the world the player is coming from
+      * @param to The name of the world the player is moving to
+    */
     public void playerWorldChange(Player p, String from, String to) {
         if (plugin.getPlayerManager().isPlayerRegistered(p.getName())) {
             ChatPlayer player = plugin.getPlayerManager().getPlayer(p.getName());
