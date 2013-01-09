@@ -6,13 +6,13 @@ import org.bukkit.plugin.Plugin;
 
 /**
 *
-* @author Krin
+* @author itidez
 */
 public class WorldManager {
-    private ChatCore plugin;
+    private Iminettt plugin;
     private MVWorldManager MVWorldManager;
 
-    public WorldManager(ChatCore instance) {
+    public WorldManager(Iminettt instance) {
         plugin = instance;
         fetchAliases();
     }
