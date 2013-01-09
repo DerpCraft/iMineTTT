@@ -1,4 +1,4 @@
-package me.itidez.plugins.iminettt;
+package me.itidez.plugins.iminettt.chat;
 
 import me.itidez.plugins.iminettt.chat.api.Manager;
 import me.itidez.plugins.iminettt.chat.targets.Channel;
