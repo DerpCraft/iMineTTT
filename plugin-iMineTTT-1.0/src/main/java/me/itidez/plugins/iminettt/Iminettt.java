@@ -16,13 +16,17 @@ public class Iminettt extends JavaPlugin {
     private String version;
     public boolean debug = false;
     
+    public static Iminettt instance;
+    
     @Override
     public void onDisable() {
         // TODO: Place any custom disable code here.
+        instance = null;
     }
 
     @Override
     public void onEnable() {
+        instance = this;
         this.description = getDescription();
         this.version = this.description.getVersion();
         debug("Setting up error logger");

@@ -4,11 +4,6 @@
  */
 package me.itidez.plugins.iminettt.player;
 
-import de.kumpelblase2.remoteentities.EntityManager;
-import de.kumpelblase2.remoteentities.RemoteEntities;
-import de.kumpelblase2.remoteentities.api.RemoteEntity;
-import de.kumpelblase2.remoteentities.api.RemoteEntityType;
-import de.kumpelblase2.remoteentities.exceptions.NoNameException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import me.itidez.plugins.iminettt.Iminettt;
@@ -16,8 +11,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import de.kumpelblase2.remoteentities.api.*;
-import de.kumpelblase2.remoteentities.api.thinking.InteractBehavior;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
@@ -27,17 +20,17 @@ import org.bukkit.ChatColor;
  */
 public class DeathLogger implements Listener{
     private Iminettt plugin;
-    private EntityManager manager;
+    //private EntityManager manager;
     
     public DeathLogger(Iminettt plugin) {
         this.plugin = plugin;
-        this.manager = RemoteEntities.createManager(plugin);
+        //this.manager = RemoteEntities.createManager(plugin);
     }
     
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         final Player player = event.getEntity();
-        if(player instanceof Player) {
+        /*if(player instanceof Player) {
             RemoteEntity entity;
             try {
                 entity = manager.createEntity(RemoteEntityType.Villager, player.getLocation(), false);
@@ -57,6 +50,6 @@ public class DeathLogger implements Listener{
             } catch (NoNameException ex) {
                 Logger.getLogger(DeathLogger.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+        }*/
     }
 }

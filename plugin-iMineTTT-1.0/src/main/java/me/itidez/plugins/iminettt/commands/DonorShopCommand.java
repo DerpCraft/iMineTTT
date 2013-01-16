@@ -8,28 +8,30 @@ import me.itidez.plugins.iminettt.CommandManager;
 import me.itidez.plugins.iminettt.IconMenu;
 import me.itidez.plugins.iminettt.Iminettt;
 import me.itidez.plugins.iminettt.VaultManager;
+import org.bukkit.Material;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.conversations.*;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 /**
  *
  * @author tjs238
  */
-public class DonorShopCommand implements ConversationAbandonedListener{
+public class DonorShopCommand {
     private ConversationFactory convoFactory;
     
     @CommandManager.Command(name = "donorshop", alias = "dshop", sender = CommandManager.Sender.PLAYER)
     public static boolean donorShop(Player sender, String... args) {
         VaultManager vm = new VaultManager();
-        if(vm.chat.playerInGroup(player, "donor")) {
+        if(vm.chat.playerInGroup(sender, "donor")) {
             openShop(sender);
         }
         return true;
     }
     
-    private void openShop(Player p) {
+    private static void openShop(Player p) {
         IconMenu menu = new IconMenu("Donor Shop", 9, new IconMenu.OptionClickEventHandler() {
             @Override
             public void onOptionClick(IconMenu.OptionClickEvent event) {
@@ -42,14 +44,14 @@ public class DonorShopCommand implements ConversationAbandonedListener{
                     //TODO: Insert dPowMenu call here
                 } else {
                     //iTidez GitHub Note: Add ErrorLogger call to log improper return of the menu. Template below
-                    ErrorLogger.sendGlobalError("");
+                    //ErrorLogger.sendGlobalError("");
                 }
                 event.getPlayer().sendMessage("You have chosen " + event.getName());
                 event.setWillClose(true);
             }
-        }, )
+        }, Iminettt.instance)
         .setOption(3, new ItemStack(Material.IRON_SWORD, 1), "Weapons", "Fight to the death with God Weapons")
-        .setOption(4, new ItemStack(Material.IRON_CHEST, 1), "Armor", "I help you live ^_^")
+        .setOption(4, new ItemStack(Material.IRON_CHESTPLATE, 1), "Armor", "I help you live ^_^")
         .setOption(5, new ItemStack(Material.EMERALD, 1), "Powerups", "Nuke 'Em ALL!");
     }
     /*
@@ -57,7 +59,7 @@ public class DonorShopCommand implements ConversationAbandonedListener{
      * Move below code to ErrorLogger.class
      * 
      */
-    public class ErrorLogger {
+    /*public class ErrorLogger {
         private Player player;
         private boolean isMultiplePlayers = false;
         private Player[] players;
@@ -88,7 +90,7 @@ public class DonorShopCommand implements ConversationAbandonedListener{
                 }
                 Iminettt.debug("Players in ErrorLogger's OP List: "+names);
             } */
-            super(null, t);
+            /*super(null, t);
         }
         
         public ErrorLogger(Player p, Target t) {
@@ -170,7 +172,7 @@ public class DonorShopCommand implements ConversationAbandonedListener{
         private Target(int value) {
             this.value = value;
         }
-    }
+    }*/
     
     //TODO: Add Result enum for default value checking
 }

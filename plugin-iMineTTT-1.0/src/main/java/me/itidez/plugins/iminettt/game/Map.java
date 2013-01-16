@@ -18,7 +18,8 @@ public enum Map {
     RAND(1) {
         @Override
         public Class getMap() {
-            return WorldManager.getRandMap();
+            return AfghanMap.class;
+            //return WorldManager.getRandMap();
         }
     };
     

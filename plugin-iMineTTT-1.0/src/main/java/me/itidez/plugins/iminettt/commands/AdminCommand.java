@@ -28,7 +28,7 @@ public class AdminCommand {
                 // TODO: Enter status method
             } else if (args[0].equalsIgnoreCase("start")) {
                 // TODO: Add official game class & startup methods. Below is template
-                Game currentGame = GameManager.getCurrentGame();
+                /*Game currentGame = GameManager.getCurrentGame();
                 if(currentGame == null || !(currentGame instanceof Game)) {
                     currentGame = new Game(Iminettt.class);
                 } 
@@ -38,11 +38,11 @@ public class AdminCommand {
                     return true;
                 }
                 GameManager.start(currentGame);
-                player.sendMessage(ChatColor.GREEN+"Game countdown engaged!");
+                player.sendMessage(ChatColor.GREEN+"Game countdown engaged!");*/
             } else if (args[0].equalsIgnoreCase("stop")) {
                 // TODO: Add official game class & shutdown methods. Below is template
-                Game currentGame = GameManager.getCurrentGame();
-                if(currentGame == null || !(currentGame instanceof Game)) {
+                //Game currentGame = GameManager.getCurrentGame();
+                /*if(currentGame == null || !(currentGame instanceof Game)) {
                     player.sendMessage(ChatColor.RED+"Error: Game not started! Run /admin <start> to begin game!");
                     return true;
                 }
@@ -51,10 +51,10 @@ public class AdminCommand {
                     player.sendMessage(ChatColor.GREEN+"Shutting game down...");
                 } else {
                     player.sendMessage(ChatColor.RED+"Error: Game not started! Run /admin <start> to begin game!");
-                }
+                }*/
             } else if (args[0].equalsIgnoreCase("restart")) {
                 // TODO: Add official game class & shutdown methods. Below is template
-                Game currentGame = GameManager.getCurrentGame();
+                /*Game currentGame = GameManager.getCurrentGame();
                 if(currentGame == null || !(currentGame instanceof Game)) {
                     player.sendMessage(ChatColor.RED+"Error: Game not started! Starting game instead!");
                     GameManager.start(currentGame);
@@ -69,10 +69,10 @@ public class AdminCommand {
                     player.sendMessage(ChatColor.RED+"Error: Game not started! Starting game instead!");
                     GameManager.start(currentGame);
                     return true;
-                }
+                }*/
             } else if (args[0].equalsIgnoreCase("spectate")) {
                 // TODO: Add official game class & spectate methods
-                Game currentgame = GameManager.getCurrentGame();
+                /*Game currentgame = GameManager.getCurrentGame();
                 if(currentGame == null || !(currentGame instanceof Game)) {
                     player.sendMessage(ChatColor.RED+"Error: Game not started! Can not spectate in Pre-Game Mode!");
                     return true;
@@ -82,7 +82,7 @@ public class AdminCommand {
                     Game.addSpectator(player);
                 } else {
                     player.sendMessage("You must be a player to spectate");
-                }
+                }*/
                 
             }
             return true;

@@ -36,7 +36,7 @@ public class ConfigManager {
 		}
 		if(!configFile.exists()){
         		configFile.getParentFile().mkdirs();
-        		copy(plugin.getResource(fileName+".yml"), configFile);
+        		//copy(plugin.getResource(fileName+".yml"), configFile);
     		}
     		config = new YamlConfiguration();
     		loadYamls();
