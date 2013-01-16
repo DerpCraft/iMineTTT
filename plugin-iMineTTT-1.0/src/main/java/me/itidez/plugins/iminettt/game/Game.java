@@ -23,7 +23,7 @@ public class Game {
     private Iminettt plugin;
     private String gameName;
     private boolean hasStarted = false;
-    private me.itidez.plugins.iminettt.game.Map map;
+    private me.itidez.plugins.iminettt.handlers.Map map;
     
     public Game(Iminettt plugin) {
         this(plugin, "default");
@@ -34,15 +34,15 @@ public class Game {
         gameName = genRandName();*/
     }
     
-    public Game(Iminettt plugin, me.itidez.plugins.iminettt.game.Map mapName) {
+    public Game(Iminettt plugin, me.itidez.plugins.iminettt.handlers.Map mapName) {
         this(plugin, mapName, "default");
     }
     
     public Game(Iminettt plugin, String gameName) {
-        this(plugin, Map.RAND, gameName);
+        this(plugin, Map, gameName);
     }
     
-    public Game(Iminettt plugin, me.itidez.plugins.iminettt.game.Map mapName, String gameName) {
+    public Game(Iminettt plugin, me.itidez.plugins.iminettt.handlers.Map mapName, String gameName) {
         this.plugin = plugin;
         plist = new ArrayList<Player>();
         ptlist = new HashMap<Player, Team>();
@@ -53,9 +53,9 @@ public class Game {
             gameName = genRandName();
     }
     
-    private me.itidez.plugins.iminettt.game.Map getRandMap() {
+    private me.itidez.plugins.iminettt.handlers.Map getRandMap() {
         
-        return me.itidez.plugins.iminettt.game.Map.AFGHAN;
+        return me.itidez.plugins.iminettt.handlers.Map.AFGHAN;
     }
     
     private static Integer showRandomInteger(int aStart, int aEnd, Random aRandom) {
