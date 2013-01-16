@@ -16,6 +16,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Iminettt extends JavaPlugin {
+    //Chat System URL (http://github.com/krinsdeath/ChatSuite)
     private static final Logger log = Logger.getLogger("Minecraft");
     private PluginDescriptionFile description;
     private static String prefix = "[iMineTTT] ";
