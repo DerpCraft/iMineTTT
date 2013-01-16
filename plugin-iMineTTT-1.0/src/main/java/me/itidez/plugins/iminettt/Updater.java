@@ -1,10 +1,71 @@
 package me.itidez.plugins.iminettt;
 
+import java.io.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Logger;
+import org.bukkit.ChatColor;
+import org.bukkit.Server;
+import org.bukkit.command.*;
+import org.bukkit.configuration.Configuration;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.permissions.Permissible;
+import org.bukkit.permissions.Permission;
+import org.bukkit.permissions.PermissionAttachment;
+import org.bukkit.permissions.PermissionAttachmentInfo;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.SimplePluginManager;
+import org.bukkit.scheduler.BukkitScheduler;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 /*
  * Author: iTidez
  */
 public class Updater implements Runnable, Listener, CommandExecutor, CommandSender{
-		/*
+/**
+	* This is internal stuff.
+	* Don't call this directly!
+        */
+  public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
+  {
+	try
+	{
+	if(args.length > 0)
+	{
+		if(args[0].equals("[REGISTER]"))
+		{
+			otherUpdaters.add((CommandExecutor)sender);
+			return true;
+		}
+		if(!plugin.getName().equalsIgnoreCase(args[0]))
+		{
+			informOtherUpdaters(sender, args);
+			return true;
+		}
+	}
+	else
+		informOtherUpdaters(sender, args);
+		update(sender);
+	}
+	catch(Throwable t)
+	{
+		printStackTraceSync(t, false);
+	}
+	return true;
+  }		
+    
+    /*
 		* Configuration:
 		*
 		* delay = The delay this class checks for new updates. This time is in ticks (1 tick = 1/20 second).
@@ -53,7 +114,7 @@ public class Updater implements Runnable, Listener, CommandExecutor, CommandSend
 	* @param plugin The instance of your plugins main class.
 	* @throws Exception
 	*/
-  public AutoUpdate(Plugin plugin) throws Exception
+  public Updater(Plugin plugin) throws Exception
   {
 	this(plugin, plugin.getConfig());
   }
@@ -65,7 +126,7 @@ public class Updater implements Runnable, Listener, CommandExecutor, CommandSend
 	* @param config The configuration to use.
 	* @throws Exception
 	*/
-  public AutoUpdate(Plugin plugin, Configuration config) throws Exception
+  public Updater(Plugin plugin, Configuration config) throws Exception
   {
 	if(plugin == null)
 		throw new Exception("Plugin can not be null");
@@ -85,6 +146,8 @@ public class Updater implements Runnable, Listener, CommandExecutor, CommandSend
 	registerCommand();
 	plugin.getServer().getPluginManager().registerEvents(this, plugin);
   }
+  
+  
   
   /**
 	* Use this to restart the main task.
@@ -139,12 +202,12 @@ public class Updater implements Runnable, Listener, CommandExecutor, CommandSend
 		if(!lock.compareAndSet(false, true))
 			return;
 		BukkitScheduler bs = plugin.getServer().getScheduler();
-		if(bs.isQueued(AutoUpdate.this.pid) || bs.isCurrentlyRunning(AutoUpdate.this.pid))
-			bs.cancelTask(AutoUpdate.this.pid);
+		if(bs.isQueued(Updater.this.pid) || bs.isCurrentlyRunning(Updater.this.pid))
+			bs.cancelTask(Updater.this.pid);
 		if(restart)
-			AutoUpdate.this.pid = bs.scheduleAsyncRepeatingTask(plugin, AutoUpdate.this, 5L, delay);
+			Updater.this.pid = bs.scheduleAsyncRepeatingTask(plugin, Updater.this, 5L, delay);
 		else
-			AutoUpdate.this.pid = -1;
+			Updater.this.pid = -1;
 		lock.set(false);
 		bs.cancelTask(pid);
 	}
@@ -257,7 +320,7 @@ public class Updater implements Runnable, Listener, CommandExecutor, CommandSend
 		try
 		{
 			InputStreamReader ir;
-			URL url = new URL("http://api.bukget.org/api2/bukkit/plugin/"+bukkitdevSlug+"/latest");
+			URL url = new URL("http://diamondgaming.com/plugins/iMineTTT/latest");
 			HttpURLConnection con = (HttpURLConnection)url.openConnection();
 			con.connect();
 			int res = con.getResponseCode();
@@ -281,7 +344,7 @@ public class Updater implements Runnable, Listener, CommandExecutor, CommandSend
 				ir.close();
 				lock.set(false);
 				return;
-	`		}
+			}
 
 			JSONObject jo = (JSONObject)o;
 			jo = (JSONObject)jo.get("versions");
@@ -452,38 +515,6 @@ public class Updater implements Runnable, Listener, CommandExecutor, CommandSend
 	{
 		printStackTraceSync(t, false);
 	}
-  }
-  
-  /**
-	* This is internal stuff.
-	* Don't call this directly!
-	*/
-  public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
-  {
-	try
-	{
-	if(args.length > 0)
-	{
-		if(args[0].equals("[REGISTER]"))
-		{
-			otherUpdaters.add((CommandExecutor)sender);
-			return true;
-		}
-		if(!plugin.getName().equalsIgnoreCase(args[0]))
-		{
-			informOtherUpdaters(sender, args);
-			return true;
-		}
-	}
-	else
-		informOtherUpdaters(sender, args);
-		update(sender);
-	}
-	catch(Throwable t)
-	{
-		printStackTraceSync(t, false);
-	}
-	return true;
   }
   
   private void informOtherUpdaters(CommandSender sender, String[] args)
