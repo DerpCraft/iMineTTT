@@ -1,13 +1,9 @@
 iMineTTT
 ========
-Placeholder for later
+An iTidez remake of the popular MineTTT servers.
 
-```java
-public class Test {
-	public boolean isTesting;
-
-	public Test() {
-		this.isTesting = true;
-	}
-}
-```
+Plugin ment to be run alone with no external plugins to handle the following features:
+* World Generation
+* Chat
+* Commands
+*
