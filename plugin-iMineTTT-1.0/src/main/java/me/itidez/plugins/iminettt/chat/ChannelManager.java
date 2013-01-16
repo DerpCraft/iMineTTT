@@ -3,13 +3,14 @@ package me.itidez.plugins.iminettt.chat;
 import me.itidez.plugins.iminettt.chat.api.Manager;
 import me.itidez.plugins.iminettt.chat.api.Target;
 import me.itidez.plugins.iminettt.chat.targets.Channel;
-import me.itidez.plugins.iminettt.chat.ChatPlayer;
+import me.itidez.plugins.iminettt.chat.targets.ChatPlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.util.*;
+import me.itidez.plugins.iminettt.Iminettt;
 
 /**
 *
@@ -54,7 +55,7 @@ public class ChannelManager implements Manager {
         try {
             getConfig().save(config);
         } catch (Exception e) {
-            plugin.warn("An error occurred while trying to save 'channels.yml'");
+            plugin.log("An error occurred while trying to save 'channels.yml'");
         }
     }
 
@@ -145,7 +146,7 @@ public class ChannelManager implements Manager {
             player.setWorld(plugin.getWorldManager().getAlias(to));
             if (world_channels && allow_channels) {
                 removePlayerFromChannel(p, from);
-                Target target = addPlayerToChannel(p, to);
+                Target target = (Target) addPlayerToChannel(p, to);
                 if (player.getTarget().getName().equals(from)) {
                     player.setTarget(target);
                 }

@@ -2,6 +2,7 @@ package me.itidez.plugins.iminettt.chat;
 
 import com.onarandombox.MultiverseCore.MultiverseCore;
 import com.onarandombox.MultiverseCore.api.MVWorldManager;
+import me.itidez.plugins.iminettt.Iminettt;
 import org.bukkit.plugin.Plugin;
 
 /**

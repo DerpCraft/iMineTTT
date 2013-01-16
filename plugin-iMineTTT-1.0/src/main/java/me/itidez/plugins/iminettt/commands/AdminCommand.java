@@ -5,6 +5,9 @@
 package me.itidez.plugins.iminettt.commands;
 
 import me.itidez.plugins.iminettt.CommandManager;
+import me.itidez.plugins.iminettt.Iminettt;
+import me.itidez.plugins.iminettt.game.Game;
+import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
@@ -27,7 +30,7 @@ public class AdminCommand {
                 // TODO: Add official game class & startup methods. Below is template
                 Game currentGame = GameManager.getCurrentGame();
                 if(currentGame == null || !(currentGame instanceof Game)) {
-                    currentGame = new Game();
+                    currentGame = new Game(Iminettt.class);
                 } 
                 
                 if(currentGame.hasStarted()) {

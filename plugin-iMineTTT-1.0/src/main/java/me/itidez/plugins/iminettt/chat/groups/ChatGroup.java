@@ -1,13 +1,14 @@
 package me.itidez.plugins.iminettt.chat.groups;
 
-import net.krinsoft.chat.ChatCore;
-import net.krinsoft.chat.api.Group;
+import me.itidez.plugins.iminettt.Iminettt;
+import me.itidez.plugins.iminettt.chat.api.Group;
+
 
 /**
 * @author iTidez
 */
 public class ChatGroup implements Group {
-    private ChatCore plugin;
+    private Iminettt plugin;
     private String name;
     private String prefix;
     private String suffix;
@@ -16,7 +17,7 @@ public class ChatGroup implements Group {
     private String format_to;
     private String format_from;
 
-    public ChatGroup(ChatCore plugin, String group) {
+    public ChatGroup(Iminettt plugin, String group) {
         this.plugin = plugin;
         this.name = group;
         this.prefix = plugin.getConfig().getString("groups." + group + ".prefix", "");

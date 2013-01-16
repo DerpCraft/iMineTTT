@@ -21,7 +21,6 @@ public class ShopCommand {
     public static boolean shop(ConsoleCommandSender sender, String... args) {
         Inventory inv = Bukkit.createInventory((InventoryHolder)sender, 5, "Terrorist Shop");
         HashMap<Integer, ItemStack> is = new HashMap<Integer, ItemStack>();
-        inv.;
         return true;
     }
 }

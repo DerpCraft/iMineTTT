@@ -1,5 +1,12 @@
 package me.itidez.plugins.iminettt;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import org.bukkit.Location;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+
 public class ConfigManager {
 	private Iminettt plugin;
 	private String fileName;
@@ -8,7 +15,7 @@ public class ConfigManager {
 	private FileConfiguration config;
 	
 	public ConfigManager(Iminettt plugin) {
-		super(plugin, "config");
+		this(plugin, "config");
 	}
 	
 	public ConfigManager(Iminettt plugin, String fileName) {
@@ -29,10 +36,11 @@ public class ConfigManager {
 		}
 		if(!configFile.exists()){
         		configFile.getParentFile().mkdirs();
-        		copy(getResource(fileName+".yml"), configFile);
+        		copy(plugin.getResource(fileName+".yml"), configFile);
     		}
     		config = new YamlConfiguration();
     		loadYamls();
+                return config;
 	}
 	
 	public void saveYamls() {

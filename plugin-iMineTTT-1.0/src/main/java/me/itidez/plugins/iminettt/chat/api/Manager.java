@@ -1,6 +1,6 @@
 package me.itidez.plugins.iminettt.chat.api;
 
-import me.itidez.plugins.iminettt;
+import me.itidez.plugins.iminettt.Iminettt;
 import org.bukkit.configuration.file.FileConfiguration;
 
 /**

@@ -5,13 +5,11 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
-import net.krinsoft.chat.ChannelManager;
-import net.krinsoft.chat.api.Target;
-import net.krinsoft.chat.events.ChannelBootEvent;
-import net.krinsoft.chat.events.ChannelJoinEvent;
-import net.krinsoft.chat.events.ChannelPartEvent;
-import net.krinsoft.chat.events.MinecraftMessageEvent;
+import me.itidez.plugins.iminettt.chat.ChannelManager;
+import me.itidez.plugins.iminettt.chat.api.Target;
+import me.itidez.plugins.iminettt.chat.events.ChannelBootEvent;
+import me.itidez.plugins.iminettt.chat.events.ChannelJoinEvent;
+import me.itidez.plugins.iminettt.chat.events.ChannelPartEvent;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;

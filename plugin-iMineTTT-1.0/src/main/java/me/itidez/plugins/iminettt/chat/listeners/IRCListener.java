@@ -1,10 +1,6 @@
 package me.itidez.plugins.iminettt.chat.listeners;
 
-import net.krinsoft.chat.ChatCore;
-import net.krinsoft.chat.events.*;
-import net.krinsoft.irc.events.IRCJoinEvent;
-import net.krinsoft.irc.events.IRCMessageEvent;
-import net.krinsoft.irc.events.IRCQuitEvent;
+import me.itidez.plugins.iminettt.Iminettt;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,9 +10,9 @@ import org.bukkit.event.Listener;
 */
 @SuppressWarnings("unused")
 public class IRCListener implements Listener {
-    private ChatCore plugin;
+    private Iminettt plugin;
 
-    public IRCListener(ChatCore instance) {
+    public IRCListener(Iminettt instance) {
         plugin = instance;
     }
 

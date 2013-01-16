@@ -1,15 +1,8 @@
 package me.itidez.plugins.iminettt.chat.listeners;
 
-import static net.krinsoft.chat.util.Replacer.replaceAll;
-import static net.krinsoft.chat.util.Replacer.replaceAllLiteral;
+import static me.itidez.plugins.iminettt.chat.util.Replacer.replaceAll;
+import static me.itidez.plugins.iminettt.chat.util.Replacer.replaceAllLiteral;
 
-import net.krinsoft.chat.ChatCore;
-import net.krinsoft.chat.api.Target;
-import net.krinsoft.chat.events.MinecraftJoinEvent;
-import net.krinsoft.chat.events.MinecraftQuitEvent;
-import net.krinsoft.chat.targets.Channel;
-import net.krinsoft.chat.targets.ChatPlayer;
-import net.krinsoft.chat.util.Replacer;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -25,6 +18,10 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import me.itidez.plugins.iminettt.Iminettt;
+import me.itidez.plugins.iminettt.chat.api.Target;
+import me.itidez.plugins.iminettt.chat.targets.Channel;
+import me.itidez.plugins.iminettt.chat.targets.ChatPlayer;
 
 /**
 *
@@ -32,11 +29,11 @@ import java.util.Set;
 */
 @SuppressWarnings("unused")
 public class PlayerListener implements Listener {
-    private ChatCore plugin;
+    private Iminettt plugin;
     private boolean prefixOnJoin;
     private boolean prefixOnQuit;
 
-    public PlayerListener(ChatCore instance) {
+    public PlayerListener(Iminettt instance) {
         plugin = instance;
         prefixOnJoin = plugin.getConfig().getBoolean("plugin.prefixOnJoin", false);
         prefixOnQuit = plugin.getConfig().getBoolean("plugin.prefixOnQuit", false);

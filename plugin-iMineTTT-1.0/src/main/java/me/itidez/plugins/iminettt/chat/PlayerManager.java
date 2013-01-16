@@ -11,6 +11,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import me.itidez.plugins.iminettt.Iminettt;
 
 /**
 *
@@ -61,7 +62,7 @@ public class PlayerManager implements Manager {
         try {
             getConfig().save(config);
         } catch (Exception e) {
-            plugin.warn("An error occurred while saving 'players.yml'");
+            plugin.log("An error occurred while saving 'players.yml'");
         }
     }
 

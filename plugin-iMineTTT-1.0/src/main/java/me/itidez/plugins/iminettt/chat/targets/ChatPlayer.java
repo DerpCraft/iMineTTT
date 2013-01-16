@@ -5,19 +5,17 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import me.itidez.plugins.iminettt.chat.PlayerManager;
+import me.itidez.plugins.iminettt.chat.api.Target;
+import me.itidez.plugins.iminettt.chat.util.Replacer;
+import me.itidez.plugins.iminettt.chat.util.Replacer.Handler;
 
-import net.krinsoft.chat.PlayerManager;
-import net.krinsoft.chat.api.Target;
-import net.krinsoft.chat.util.Replacer;
-import net.krinsoft.chat.util.Replacer.Handler;
 
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-import com.herocraftonline.dev.heroes.Heroes;
-import com.herocraftonline.dev.heroes.persistence.Hero;
 
 /**
 *
@@ -73,18 +71,6 @@ public class ChatPlayer implements Target {
                 public String getValue(final Object... scope) {
                     final ChatPlayer chatPlayer = (ChatPlayer) scope[0];
                     final PlayerManager manager = chatPlayer.manager;
-                    final Plugin tmp = manager.getPlugin().getServer().getPluginManager().getPlugin("Heroes");
-                    if (tmp != null) {
-                        try {
-                            final Heroes heroes = (Heroes) tmp;
-                            final Player player = manager.getPlugin().getServer().getPlayer(chatPlayer.getName());
-                            final Hero hero = heroes.getHeroManager().getHero(player);
-                            final String hero_name = hero.getHeroClass().getName();
-                            return hero_name;
-                        } catch (final Exception e) {
-                            manager.getPlugin().warn("An error occurred while parsing a Hero class: " + e.getLocalizedMessage());
-                        }
-                    }
                     return "";
                 }
             };

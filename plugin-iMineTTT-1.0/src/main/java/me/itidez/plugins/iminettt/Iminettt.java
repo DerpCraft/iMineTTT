@@ -1,5 +1,6 @@
 package me.itidez.plugins.iminettt;
 
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import me.itidez.plugins.iminettt.commands.AdminCommand;
@@ -49,101 +50,5 @@ public class Iminettt extends JavaPlugin {
     
     public static void debug( String message) {
         log.log(Level.INFO, "[DEV]{0}{1}", new Object[]{prefix, message});
-    }
-    
-    private void logToFile(String message) {
-    	try {
-    		File dataFolder = getDataFolder();
-    		if(!dataFolder.exists()) {
-    			dataFolder.mkdir();
-    		}
-    		
-    		File saveTo = new File(dataFolder, "consoleLog.log");
-    		if(!saveTo.exists()) {
-    			saveTo.createNewFile();
-    		}
-    		
-    		FileWritter fileWritter = new FileWritter(saveTo, true);
-    		
-    		PrintWriter printWritter = new PrintWriter(fileWritter);
-    		
-    		/*
-    		 * Print the log to the file on a new line
-    		 */
-    		printWritter.println(message);
-    		
-    		/*
-    		 * Flush the writter so its fresh for the next message
-    		 */
-    		printWritter.flush();
-    		printWritter.close();
-    	} catch(IOException ex) {
-    		ex.printStackTrace();
-    	}
-    }
-    
-    public static void logToFile(String message) {
-    	try {
-    		File dataFolder = getDataFolder();
-    		if(!dataFolder.exists()) {
-    			dataFolder.mkdir();
-    		}
-    		
-    		File saveTo = new File(dataFolder, "consoleLog.log");
-    		if(!saveTo.exists()) {
-    			saveTo.createNewFile();
-    		}
-    		
-    		FileWritter fileWritter = new FileWritter(saveTo, true);
-    		
-    		PrintWriter printWritter = new PrintWriter(fileWritter);
-    		
-    		/*
-    		 * Print the log to the file on a new line
-    		 */
-    		printWritter.println(message);
-    		
-    		/*
-    		 * Flush the writter so its fresh for the next message
-    		 */
-    		printWritter.flush();
-    		printWritter.close();
-    	} catch(IOException ex) {
-    		ex.printStackTrace();
-    	}
-    }
-    
-    public void logToFile(String message, boolean log) {
-    	if(log) {
-    		log(message);
-    	}
-    	try {
-    		File dataFolder = getDataFolder();
-    		if(!dataFolder.exists()) {
-    			dataFolder.mkdir();
-    		}
-    		
-    		File saveTo = new File(dataFolder, "consoleLog.log");
-    		if(!saveTo.exists()) {
-    			saveTo.createNewFile();
-    		}
-    		
-    		FileWritter fileWritter = new FileWritter(saveTo, true);
-    		
-    		PrintWriter printWritter = new PrintWriter(fileWritter);
-    		
-    		/*
-    		 * Print the log to the file on a new line
-    		 */
-    		printWritter.println(message);
-    		
-    		/*
-    		 * Flush the writter so its fresh for the next message
-    		 */
-    		printWritter.flush();
-    		printWritter.close();
-    	} catch(IOException ex) {
-    		ex.printStackTrace();
-    	}
     }
 }

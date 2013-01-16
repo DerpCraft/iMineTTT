@@ -1,19 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package me.itidez.plugins.iminettt;
 
-/**
- *
- * @author tjs238
- */
-import net.minecraft.server.NBTTagCompound;
-import net.minecraft.server.NBTTagList;
-import net.minecraft.server.NBTTagString;
- 
+import java.util.Arrays;
+
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -22,6 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
  
 public class IconMenu implements Listener {
@@ -91,11 +81,11 @@ public class IconMenu implements Listener {
             }
         }
     }
-   
+    
     public interface OptionClickEventHandler {
         public void onOptionClick(OptionClickEvent event);       
     }
-   
+    
     public class OptionClickEvent {
         private Player player;
         private int position;
@@ -141,36 +131,11 @@ public class IconMenu implements Listener {
     }
    
     private ItemStack setItemNameAndLore(ItemStack item, String name, String[] lore) {
-        CraftItemStack craftItem;       
-        if (item instanceof CraftItemStack) {
-            craftItem = (CraftItemStack)item;
-        } else {
-            craftItem = new CraftItemStack(item);
-        }
-       
-        NBTTagCompound tag = craftItem.getHandle().tag;
-        if (tag == null) {
-            tag = new NBTTagCompound();
-            craftItem.getHandle().tag = tag;
-        }
-        NBTTagCompound disp = tag.getCompound("display");
-        if (disp == null) {
-            disp = new NBTTagCompound("display");
-        }
-       
-        disp.setString("Name", name);
-       
-        if (lore != null && lore.length > 0) {
-            NBTTagList list = new NBTTagList("Lore");
-            disp.set("Lore", list);
-            for (String l : lore) {
-                list.add(new NBTTagString("", l));
-            }
-        }
-       
-        tag.setCompound("display", disp);
-       
-        return craftItem;
+        ItemMeta im = item.getItemMeta();
+            im.setDisplayName(name);
+            im.setLore(Arrays.asList(lore));
+        item.setItemMeta(im);
+        return item;
     }
    
 }

@@ -8,17 +8,10 @@ package me.itidez.plugins.iminettt;
  *
  * @author tjs238
  */
-import net.minecraft.server.MinecraftServer;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.exception.ExceptionUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginLogger;
-import org.bukkit.plugin.java.JavaPlugin;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import static java.lang.System.getProperty;
 import java.lang.reflect.Field;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -28,9 +21,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
-
-import static java.lang.System.getProperty;
-import org.bukkit.craftbukkit.CraftServer;
+import net.minecraft.server.v1_4_6.MinecraftServer;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.exception.ExceptionUtils;
+import org.bukkit.Bukkit;
+import org.bukkit.craftbukkit.v1_4_6.CraftServer;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginLogger;
+import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * Custom pluginLogger to save errors. Multiple-instance safe!
